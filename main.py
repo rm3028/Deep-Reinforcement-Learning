@@ -2,6 +2,7 @@
 from datetime import datetime
 import gym
 from gym.utils.play import play
+from gym import wrappers
 import os
 from tqdm import tqdm
 from torch.utils.tensorboard import SummaryWriter
@@ -44,6 +45,7 @@ if __name__ == '__main__':
     output_folder = 'results/PG_' + env_name + '_'+ now.strftime("%y%m%d_%H%M")
     logPath = output_folder + '/log'
     modelPath = output_folder + '/model'
+    recordPath = output_folder + '/record'
     writer = SummaryWriter(logPath)
 
     env = gym.make(env_name)
@@ -55,7 +57,7 @@ if __name__ == '__main__':
     observation_num = env.observation_space.shape[0]
     action_num = env.action_space.n
     agent = PolicyGradientAgent(observation_num, action_num, lr=0.001, device=device)
-    #agent.network.load_state_dict(torch.load('results/PG_210202_1631/model/Model_210202_164109.pkl'))
+    #agent.network.load_state_dict(torch.load('results/PG_LunarLander-v2_210202_1733/model/LunarLander-v2_210203_040937.pkl'))
     agent.network.train()
 
     # Train agent
@@ -102,6 +104,8 @@ if __name__ == '__main__':
 
     # Test agent
     agent.network.eval()
+
+    env = wrappers.Monitor(env, recordPath, video_callable=lambda episode_idx: episode_idx % 1 == 0, force=True)
 
     observation = env.reset()
     observation = torch.FloatTensor(observation).to(device)
