@@ -7,6 +7,7 @@
   * tensorboard: 2.3.0
   * gym: 0.18.0
   * tqdm: 4.54.1
+  * ffmpy: 0.3.0
 * Environments:
   * LunarLander-v2
 * Author: Wei-Yun
