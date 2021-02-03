@@ -15,4 +15,4 @@
 * All rights reserved.
 
 ## LunarLander-v2 - Policy Gradient (PG) Agent
-[<img src="" width="50%">](https://github.com/rm3028/Deep-Reinforcement-Learning/blob/master/results/PG_LunarLander-v2_210202_1733/record/openaigym.video.0.16880.video000000.mp4)
+![image](https://github.com/rm3028/Deep-Reinforcement-Learning/blob/master/results/PG_LunarLander-v2_210202_1733/record/openaigym.video.0.16880.video000000.gif)
