@@ -1,5 +1,6 @@
 
 from datetime import datetime
+import ffmpy
 import gym
 from gym.utils.play import play
 from gym import wrappers
@@ -37,7 +38,7 @@ def get_keys_to_action(env):
 if __name__ == '__main__':
     # Initalization
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    epoch_num = 10000
+    epoch_num = 0
     episode_num = 5
     now = datetime.now()
 
@@ -57,7 +58,7 @@ if __name__ == '__main__':
     observation_num = env.observation_space.shape[0]
     action_num = env.action_space.n
     agent = PolicyGradientAgent(observation_num, action_num, lr=0.001, device=device)
-    #agent.network.load_state_dict(torch.load('results/PG_LunarLander-v2_210202_1733/model/LunarLander-v2_210203_040937.pkl'))
+    agent.network.load_state_dict(torch.load('results/PG_LunarLander-v2_210202_1733/model/LunarLander-v2_210203_040937.pkl'))
     agent.network.train()
 
     # Train agent
@@ -127,4 +128,7 @@ if __name__ == '__main__':
 
     env.close()
 
-    pass
+    ff = ffmpy.FFmpeg(
+        inputs={env.video_recorder.path: None},
+        outputs={env.video_recorder.path.replace('mp4', 'gif'): None})
+    ff.run()
